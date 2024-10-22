@@ -1,0 +1,85 @@
+#include<iostream>
+using namespace std;
+
+class masina {
+public:
+	int nrRoti;
+	string marca;
+	float pret;
+	static int TVA;
+	const int anFabricatie;
+	
+	
+	masina(): anFabricatie(2024), nrRoti(4) {
+	
+		this->marca = "Dacia";
+		this->pret = 5000;
+	}
+	masina(int _nrRoti, string marca, float pret, int an):anFabricatie(an) {
+		this->nrRoti = _nrRoti;
+		this->marca = marca;
+		this->pret = pret;
+	}
+	void afisare() {
+		cout << "Marca:" << this->marca << endl;
+		cout << "Nr Roti :" << this->nrRoti << endl;
+		cout << "Pret:" << this->pret << endl;
+		cout << "TVA:" << this->TVA << endl;
+		cout << "An fabricatie:" << this->anFabricatie << endl;
+		cout << endl;
+	}
+	float calculeazaPretTotal() {
+		return this->pret + (this->pret + ((float)masina::TVA / 100));
+
+	}
+
+	static void modificaTVA(unsigned int noulTVA) {
+		if (noulTVA > 0) {
+			masina::TVA = noulTVA;
+		}
+	}
+	static float calculeazaPretTotalVector(int nrMasini, masina* vector) {
+		float PretTotal = 0;
+		for (int i = 0; i < nrMasini; i++) {
+			PretTotal += vector[i].calculeazaPretTotal();
+			return PretTotal;
+		
+		}
+
+	}
+
+};
+int masina::TVA = 19;
+
+int main() {
+	masina m1;
+	m1.afisare();
+	
+	masina m2(4, "Audi", 7000, 2020);
+	m2.afisare();
+	masina::modificaTVA(21);
+
+
+	masina* pointer = new masina(6,"Volvo", 20000, 2022);
+	pointer->afisare();
+
+	cout << "Pret Total: " << pointer->calculeazaPretTotal() << endl;
+	int nrMasini = 3;
+	masina* vector;
+	vector = new masina[nrMasini];
+
+	for (int i = 0; i < nrMasini; i++) {
+		vector[i].afisare();
+
+
+	}
+
+
+	cout << masina::calculeazaPretTotalVector(nrMasini, vector);
+	return 0;
+
+			// ->-dereferentiere+accesare 
+			//[]-deplasare+dereferentiere
+
+	
+}
